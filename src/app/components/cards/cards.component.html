@@ -1,0 +1,19 @@
+<div class="row row-cols-1 row-cols-md-3 g-4 m-5 animated fadeIn">
+    <div (click)="sendArtistId(item)" *ngFor="let item of items" class="puntero">
+        <div class="col">
+            <div class="card h-100">
+                <img [src]="item.images | noimage" class="card-img-top" alt="...">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{item.name}}</h5>
+                    <p class="card-text" *ngIf="!isArtist">
+                        <span class="badge rounded-pill bg-primary"
+                            *ngFor="let artist of item.artists">{{artist.name}}</span>
+                    </p>
+                    <p class="card-text" *ngIf="isArtist">
+                        <span class="badge rounded-pill bg-primary" *ngFor="let gen of item.genres">{{gen}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
