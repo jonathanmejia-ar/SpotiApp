@@ -16,10 +16,10 @@ export class SearchComponent {
   }
 
 
-  buscar(termino: string) {
+  buscar(term: string) {
     this.loading = true;
 
-    this.spotify.searchArtist(termino)
+    this.spotify.searchArtist(term)
       .subscribe((data: any) => {
         this.artists = data
         this.loading = false;

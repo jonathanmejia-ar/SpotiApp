@@ -20,8 +20,8 @@ export class SpotifyService {
     return this.http.get(url, { headers });
   }
 
-  searchArtist(termino: string) {
-    return this.getQuery(`search?q=${termino}&type=artist&limit=21`)
+  searchArtist(term: string) {
+    return this.getQuery(`search?q=${term}&type=artist&limit=21`)
       .pipe(map((data: any) => data.artists.items));
   }
 
