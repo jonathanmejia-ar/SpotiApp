@@ -15,6 +15,10 @@ export class ArtistComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
     private spotify: SpotifyService) {
+
+  }
+
+  ngOnInit(): void {
     this.loading = true;
     this.activatedRoute.params.subscribe((param: any) => {
       this.getArtist(param['id']);
@@ -22,19 +26,21 @@ export class ArtistComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-  }
-
   getArtist(id: string) {
-    this.spotify.getArtist(id).subscribe(data => {
-      this.artist = data;
-      this.loading = false;
-    });
+    this.spotify.getToken().subscribe(() => {
+      this.spotify.getArtist(id).subscribe(data => {
+        this.artist = data;
+        this.loading = false;
+      });
+    })
+
   }
 
   getTopTracks(id: string) {
-    this.spotify.getTopTracks(id).subscribe(data => {
-      this.topTracks = data;
+    this.spotify.getToken().subscribe(() => {
+      this.spotify.getTopTracks(id).subscribe(data => {
+        this.topTracks = data;
+      });
     });
   }
 

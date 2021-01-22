@@ -1,21 +1,29 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpotifyService {
+  private client_id: string = 'b989ccb9baad4745ac14317192cc14f8';
+  private client_secret: string = 'ac5c9cb767bf496b8f8b3ebd763ebfb4';
+  private tkn: string //= 'Bearer BQBT6MJJqEgxHC8hJ94OCOm-WbcBb0CetlRayyEBvL5ZjAFVYwlN51jnApvWCplXIZh7CvcM170B1S0dSlo';
 
   constructor(private http: HttpClient) {
     console.log('Spotify Service');
   }
 
+  getToken() {
+    return this.http.get(`https://spotifyapp-tokengenerator.herokuapp.com/spotify/${this.client_id}/${this.client_secret}`)
+      .pipe(map((token: any) => this.tkn = `Bearer ${token.access_token}`));
+  }
+
   getQuery(query: string) {
     const url = `https://api.spotify.com/v1/${query}`;
     const headers = new HttpHeaders({
-      'Authorization': 'Bearer BQAU1dH97q4YZ8XT21Doc6039CnEi6t9uH1P8ixHQqCdSsAyRVlY4SsHZIhv9EXzNpl_lrQYMbFpTk0Uisg'
+      'Authorization': this.tkn
     });
     return this.http.get(url, { headers });
   }

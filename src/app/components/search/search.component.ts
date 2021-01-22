@@ -12,11 +12,9 @@ export class SearchComponent {
   loading: boolean;
 
   constructor(private spotify: SpotifyService) {
-
   }
 
-
-  buscar(term: string) {
+  search(term: string) {
     this.loading = true;
 
     this.spotify.searchArtist(term)
